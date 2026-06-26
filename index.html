@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0A0A0F;
+      --bg-surface: #111118;
+      --bg-card:    #16161F;
+      --border:     #1E1E2E;
+      --accent:     #4FC3F7;
+      --accent-dim: #1a3a4a;
+      --text-hi:    #E8E8F0;
+      --text-mid:   #9090A8;
+      --text-lo:    #4A4A5E;
+      --green:      #6EE7B7;
+      --purple:     #A78BFA;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-mid);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── LAYOUT ────────────────────────────────────── */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 0;
+    }
+
+    /* ── HEADER / HERO ─────────────────────────────── */
+    header {
+      grid-column: 1 / -1;
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .hero-left {}
+
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 700;
+      color: var(--text-hi);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 4px;
+      height: 0.85em;
+      background: var(--accent);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1.1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-mid);
+      margin-top: 12px;
+      letter-spacing: 0.01em;
+    }
+    .hero-title span { color: var(--accent); }
+
+    .hero-bio {
+      max-width: 520px;
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-mid);
+    }
+
+    /* hero contact links */
+    .hero-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .hero-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero-links a:hover { color: var(--accent); }
+    .hero-links .link-icon {
+      width: 28px; height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .hero-links a:hover .link-icon {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px var(--accent-dim);
+    }
+
+    /* ── SIDEBAR ───────────────────────────────────── */
+    .sidebar {
+      padding-right: 48px;
+      padding-top: 4px;
+    }
+
+    .sidebar-section { margin-bottom: 44px; }
+
+    /* ── SECTION LABEL ─────────────────────────────── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-lo);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label::before { content: '//'; color: var(--accent); }
+
+    /* ── SKILLS ────────────────────────────────────── */
+    .skill-group { margin-bottom: 18px; }
+    .skill-group-name {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-lo);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      background: var(--bg-card);
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+    .pill.accent { border-color: var(--accent-dim); color: var(--accent); }
+    .pill.green  { border-color: #1a3d30; color: var(--green); }
+    .pill.purple { border-color: #2a1f4a; color: var(--purple); }
+
+    /* ── LANGUAGES ─────────────────────────────────── */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .lang-name { font-size: 13px; color: var(--text-hi); }
+    .lang-level {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-lo);
+    }
+    .lang-bar {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .lang-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 2px;
+    }
+
+    /* ── EDUCATION sidebar ─────────────────────────── */
+    .edu-item { margin-bottom: 20px; }
+    .edu-degree {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-hi);
+      line-height: 1.4;
+    }
+    .edu-school {
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .edu-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-lo);
+      margin-top: 2px;
+    }
+
+    /* ── MAIN CONTENT ──────────────────────────────── */
+    .main { min-width: 0; }
+
+    .main-section { margin-bottom: 56px; }
+
+    .main-section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .main-section-header .section-label { margin-bottom: 0; }
+
+    /* ── EXPERIENCE CARD ───────────────────────────── */
+    .exp-card {
+      position: relative;
+      padding: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .exp-card:hover {
+      border-color: #2a2a3e;
+      box-shadow: 0 4px 24px rgba(79,195,247,0.04);
+    }
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      left: -1px; top: 20px; bottom: 20px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--purple));
+      border-radius: 0 2px 2px 0;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .exp-card:hover::before { opacity: 1; }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .exp-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-hi);
+    }
+    .exp-dates {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-lo);
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+    .exp-company {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .exp-company .dot { color: var(--text-lo); font-size: 10px; }
+    .exp-location { color: var(--text-lo); font-size: 12px; }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .exp-bullets li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .exp-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: var(--bg-surface);
+      color: var(--text-lo);
+      border: 1px solid var(--border);
+    }
+
+    /* ── PROJECTS ──────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.25s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .project-card:hover {
+      border-color: #2a2a3e;
+      transform: translateY(-2px);
+    }
+    .project-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-hi);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .project-name a {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .project-name a:hover { opacity: 1; }
+    .project-desc {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    /* ── CERTIFICATIONS ────────────────────────────── */
+    .cert-list { display: flex; flex-direction: column; gap: 12px; }
+    .cert-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .cert-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--accent-dim);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .cert-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-hi);
+    }
+    .cert-issuer {
+      font-size: 12px;
+      color: var(--text-lo);
+      margin-top: 2px;
+    }
+    .cert-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-lo);
+      margin-left: auto;
+    }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-lo);
+    }
+    footer span { color: var(--accent); }
+
+    /* ── PRINT BUTTON ──────────────────────────────── */
+    .print-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--bg);
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(79,195,247,0.3);
+    }
+    .print-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 780px) {
+      .page {
+        grid-template-columns: 1fr;
+        padding: 0 16px 60px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 48px 0 40px;
+      }
+      .hero-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      .sidebar { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 40px; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (min-width: 781px) {
+      .sidebar {
+        border-right: 1px solid var(--border);
+        padding-right: 40px;
+        position: sticky;
+        top: 0;
+        align-self: start;
+        max-height: 100vh;
+        overflow-y: auto;
+        scrollbar-width: none;
+      }
+      .sidebar::-webkit-scrollbar { display: none; }
+    }
+
+    /* ── PRINT ─────────────────────────────────────── */
+    @media print {
+      body { background: white; color: #333; }
+      .print-btn { display: none; }
+      :root {
+        --bg: white; --bg-surface: #f5f5f5; --bg-card: #f9f9f9;
+        --border: #ddd; --accent: #0077cc; --text-hi: #111;
+        --text-mid: #444; --text-lo: #888;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; opacity: 1; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ HEADER ═══════════════════════════════════════ -->
+  <header>
+    <div class="hero-left">
+      <div class="hero-tag">available for opportunities</div>
+      <h1>Your Name<span class="cursor"></span></h1>
+      <div class="hero-title"><span>// </span>Your Job Title · Your City, Country</div>
+      <p class="hero-bio">
+        Write 2–3 sentences about yourself here. What drives you professionally?
+        What's your core expertise? What kind of problems do you love solving?
+        Keep it specific and human — avoid buzzwords.
+      </p>
+    </div>
+
+    <div class="hero-links">
+      <a href="mailto:you@email.com">
+        <span class="link-icon">✉</span>
+        you@email.com
+      </a>
+      <a href="https://linkedin.com/in/yourhandle" target="_blank">
+        <span class="link-icon">in</span>
+        linkedin.com/in/yourhandle
+      </a>
+      <a href="https://github.com/yourhandle" target="_blank">
+        <span class="link-icon">⌥</span>
+        github.com/yourhandle
+      </a>
+      <a href="tel:+10000000000">
+        <span class="link-icon">☎</span>
+        +1 (000) 000-0000
+      </a>
+    </div>
+  </header>
+
+  <!-- ═══ SIDEBAR ══════════════════════════════════════ -->
+  <aside class="sidebar">
+
+    <!-- SKILLS -->
+    <div class="sidebar-section">
+      <div class="section-label">Skills</div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Languages</div>
+        <div class="skill-pills">
+          <span class="pill accent">Python</span>
+          <span class="pill accent">JavaScript</span>
+          <span class="pill accent">TypeScript</span>
+          <span class="pill">SQL</span>
+          <span class="pill">Bash</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Frameworks & Tools</div>
+        <div class="skill-pills">
+          <span class="pill green">React</span>
+          <span class="pill green">Node.js</span>
+          <span class="pill green">FastAPI</span>
+          <span class="pill">Docker</span>
+          <span class="pill">Git</span>
+          <span class="pill">Linux</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Cloud & Data</div>
+        <div class="skill-pills">
+          <span class="pill purple">AWS</span>
+          <span class="pill purple">GCP</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Redis</span>
+          <span class="pill">Kafka</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="sidebar-section">
+      <div class="section-label">Education</div>
+
+      <div class="edu-item">
+        <div class="edu-degree">B.Sc. Computer Science</div>
+        <div class="edu-school">Your University Name</div>
+        <div class="edu-year">2016 – 2020</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-degree">Another Degree or Bootcamp</div>
+        <div class="edu-school">Institution Name</div>
+        <div class="edu-year">2020 – 2021</div>
+      </div>
+    </div>
+
+    <!-- LANGUAGES -->
+    <div class="sidebar-section">
+      <div class="section-label">Languages</div>
+
+      <div class="lang-item">
+        <span class="lang-name">English</span>
+        <span class="lang-level">Native</span>
+      </div>
+      <div class="lang-bar"><div class="lang-bar-fill" style="width:100%"></div></div>
+
+      <div class="lang-item">
+        <span class="lang-name">Spanish</span>
+        <span class="lang-level">Fluent</span>
+      </div>
+      <div class="lang-bar"><div class="lang-bar-fill" style="width:80%"></div></div>
+
+      <div class="lang-item">
+        <span class="lang-name">French</span>
+        <span class="lang-level">Basic</span>
+      </div>
+      <div class="lang-bar"><div class="lang-bar-fill" style="width:35%"></div></div>
+    </div>
+
+  </aside>
+
+  <!-- ═══ MAIN ══════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- EXPERIENCE -->
+    <section class="main-section">
+      <div class="main-section-header">
+        <div class="section-label">Experience</div>
+      </div>
+
+      <!-- Job 1 -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Senior Software Engineer</div>
+          <div class="exp-dates">Jan 2023 — Present</div>
+        </div>
+        <div class="exp-company">
+          Company Name
+          <span class="dot">·</span>
+          <span class="exp-location">City, Country · Remote</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Describe your biggest achievement here — use numbers when possible (e.g. "Reduced API latency by 40% by redesigning the caching layer").</li>
+          <li>Second impactful bullet point about a project, team size, or business outcome you contributed to.</li>
+          <li>Third bullet: a skill or technology you deepened here, or a cross-functional initiative you led.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">React</span>
+          <span class="exp-tag">Node.js</span>
+          <span class="exp-tag">PostgreSQL</span>
+          <span class="exp-tag">AWS</span>
+        </div>
+      </div>
+
+      <!-- Job 2 -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Software Engineer</div>
+          <div class="exp-dates">Jun 2021 — Dec 2022</div>
+        </div>
+        <div class="exp-company">
+          Previous Company
+          <span class="dot">·</span>
+          <span class="exp-location">City, Country</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Key contribution from this role — what problem did you solve?</li>
+          <li>Another achievement with scope: how many users, what scale, what impact on the product?</li>
+          <li>Collaboration, mentoring, or process improvement you drove here.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Python</span>
+          <span class="exp-tag">FastAPI</span>
+          <span class="exp-tag">Docker</span>
+          <span class="exp-tag">Redis</span>
+        </div>
+      </div>
+
+      <!-- Job 3 -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Junior Developer / Intern</div>
+          <div class="exp-dates">Jul 2020 — May 2021</div>
+        </div>
+        <div class="exp-company">
+          First Company
+          <span class="dot">·</span>
+          <span class="exp-location">City, Country</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>What you built or contributed to as a junior — even small things count if they had a real impact.</li>
+          <li>Technologies you learned on the job, or processes you improved.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">JavaScript</span>
+          <span class="exp-tag">SQL</span>
+          <span class="exp-tag">Git</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="main-section">
+      <div class="main-section-header">
+        <div class="section-label">Projects</div>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-name">
+            Project Alpha
+            <a href="https://github.com/yourhandle/project" target="_blank">↗ repo</a>
+          </div>
+          <p class="project-desc">One or two sentences about what this project does, what problem it solves, and why you built it.</p>
+          <div class="project-stack">
+            <span class="pill">Python</span>
+            <span class="pill accent">FastAPI</span>
+            <span class="pill">Docker</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">
+            Project Beta
+            <a href="https://github.com/yourhandle/project2" target="_blank">↗ repo</a>
+          </div>
+          <p class="project-desc">Describe the technical challenge or interesting design decision this project showcases.</p>
+          <div class="project-stack">
+            <span class="pill">TypeScript</span>
+            <span class="pill green">React</span>
+            <span class="pill">Node.js</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">
+            Project Gamma
+            <a href="#" target="_blank">↗ live</a>
+          </div>
+          <p class="project-desc">Another project — open source contributions, side products, research tools, or automations count.</p>
+          <div class="project-stack">
+            <span class="pill purple">AWS</span>
+            <span class="pill">Kafka</span>
+            <span class="pill">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">
+            Project Delta
+            <a href="#" target="_blank">↗ demo</a>
+          </div>
+          <p class="project-desc">Keep this one too — four projects shows breadth. Remove if you only want to highlight three.</p>
+          <div class="project-stack">
+            <span class="pill">Bash</span>
+            <span class="pill">Linux</span>
+            <span class="pill accent">Python</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="main-section">
+      <div class="main-section-header">
+        <div class="section-label">Certifications</div>
+      </div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <div class="cert-icon">☁</div>
+          <div>
+            <div class="cert-name">AWS Solutions Architect – Associate</div>
+            <div class="cert-issuer">Amazon Web Services</div>
+          </div>
+          <div class="cert-year">2023</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">◈</div>
+          <div>
+            <div class="cert-name">Another Certification Name</div>
+            <div class="cert-issuer">Issuing Organization</div>
+          </div>
+          <div class="cert-year">2022</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">⚡</div>
+          <div>
+            <div class="cert-name">Third Certification or Course</div>
+            <div class="cert-issuer">Platform or Institution</div>
+          </div>
+          <div class="cert-year">2021</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════ -->
+  <footer>
+    <p>© <span id="year"></span> Your Name · Built with HTML & hosted on <span>GitHub Pages</span></p>
+    <p>Last updated: <span>June 2026</span></p>
+  </footer>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">⬇ Download PDF</button>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
